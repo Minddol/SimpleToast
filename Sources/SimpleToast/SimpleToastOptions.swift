@@ -36,6 +36,12 @@ public struct SimpleToastOptions {
     /// Flag dismiss on tap
     public var dismissOnTap: Bool? = false
 
+    /// Flag dismiss on tap
+    public var dismissOnTapOutside: Bool = false
+    
+    /// Flag dismiss on tap
+    public var dismissOnDrag: Bool = false
+
     /// All available modifier types
     public enum ModifierType {
         case fade, slide, scale, skew
@@ -47,7 +53,9 @@ public struct SimpleToastOptions {
         backdrop: Color? = nil,
         animation: Animation = .linear,
         modifierType: ModifierType = .fade,
-        dismissOnTap: Bool? = true
+        dismissOnTap: Bool? = true,
+        dismissOnTapOutside: Bool = true,
+        dismissOnDrag: Bool = true
     ) {
         self.alignment = alignment
         self.hideAfter = hideAfter
@@ -55,7 +63,8 @@ public struct SimpleToastOptions {
         self.animation = animation
         self.modifierType = modifierType
         self.dismissOnTap = dismissOnTap
-
+        self.dismissOnTapOutside = dismissOnTapOutside
+        self.dismissOnDrag = dismissOnDrag
     }
 }
 
@@ -69,8 +78,9 @@ extension SimpleToastOptions {
         backdropColor: Color = Color.white.opacity(0.9),
         animation: Animation? = nil,
         modifierType: ModifierType = .fade,
-        dismissOnTap: Bool? = true
-
+        dismissOnTap: Bool? = true,
+        dismissOnTapOutside: Bool = true,
+        dismissOnDrag: Bool = true
     ) {
         self.alignment = alignment
         self.hideAfter = hideAfter
@@ -79,5 +89,7 @@ extension SimpleToastOptions {
         self.animation = animation
         self.modifierType = modifierType
         self.dismissOnTap = dismissOnTap
+        self.dismissOnTapOutside = dismissOnTapOutside
+        self.dismissOnDrag = dismissOnDrag
     }
 }

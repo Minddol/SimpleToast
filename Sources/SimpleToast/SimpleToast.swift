@@ -30,6 +30,7 @@ struct SimpleToast<SimpleToastContent: View>: ViewModifier {
     private var dragGesture: some Gesture {
         DragGesture()
             .onChanged { [self] in
+                guard options.dismissOnDrag else { return }
                 delta = 0
 
                 switch options.alignment {
@@ -65,6 +66,7 @@ struct SimpleToast<SimpleToastContent: View>: ViewModifier {
                 }
             }
             .onEnded { [self] _ in
+                guard options.dismissOnDrag else { return }
                 if delta >= maxDelta {
                     return dismiss()
                 }
@@ -141,7 +143,7 @@ struct SimpleToast<SimpleToastContent: View>: ViewModifier {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(options.backdrop?.edgesIgnoringSafeArea(.all))
                     .opacity(options.backdrop != nil && showToast ? 1 : 0)
-                    .onTapGesture(perform: dismiss)
+                    .onTapGesture(perform: dismissOnTapOutside)
             )
 
             // Toast content
@@ -196,6 +198,12 @@ struct SimpleToast<SimpleToastContent: View>: ViewModifier {
     /// Dismiss the toast Base on dismissOnTap
     private func dismissOnTap() {
         if(options.dismissOnTap ?? true){
+            self.dismiss()
+        }
+    }
+    /// Dismiss the toast Base on dismissOnTap
+    private func dismissOnTapOutside() {
+        if options.dismissOnTapOutside {
             self.dismiss()
         }
     }
